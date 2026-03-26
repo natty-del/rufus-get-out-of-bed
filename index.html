@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>🌟 Rufus Morning Routine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+ 
+    <!-- HEADER -->
+    <header id="header">
+      <div id="header-left">
+        <div id="current-date-display"></div>
+        <div id="current-time-display"></div>
+      </div>
+      <div id="header-center">
+        <div id="total-points-badge">
+          <span class="pts-icon">⭐</span>
+          <span id="all-time-total">0</span>
+          <span class="pts-label">pts</span>
+        </div>
+      </div>
+      <div id="header-right">
+        <button id="mute-btn" class="icon-btn" title="Toggle audio">🔊</button>
+        <button id="parent-btn" class="icon-btn" title="Parent controls">⚙️</button>
+      </div>
+    </header>
+ 
+    <!-- HERO: CURRENT TASK COUNTDOWN -->
+    <section id="hero-section">
+      <div id="hero-label">Current Task</div>
+      <div id="hero-task-name"></div>
+      <div id="hero-timer-wrap">
+        <div id="hero-timer">--:--</div>
+        <div id="hero-timer-label">remaining</div>
+      </div>
+      <div id="hero-status-text"></div>
+    </section>
+ 
+    <!-- TASK LIST -->
+    <section id="task-list" role="list">
+      <!-- Rendered by JS -->
+    </section>
+ 
+    <!-- BOTTOM STATS BAR -->
+    <footer id="stats-bar">
+      <div class="stat-chip">
+        <span class="stat-val" id="today-points">0</span>
+        <span class="stat-lbl">Today</span>
+      </div>
+      <div class="stat-chip">
+        <span class="stat-val" id="streak-count">0</span>
+        <span class="stat-lbl">Day Streak 🔥</span>
+      </div>
+      <div class="stat-chip">
+        <span class="stat-val" id="best-day-pts">0</span>
+        <span class="stat-lbl">Best Day</span>
+      </div>
+    </footer>
+ 
+  </div><!-- end #app -->
+ 
+  <!-- CELEBRATION OVERLAY -->
+  <div id="celebration-overlay" class="hidden" aria-hidden="true">
+    <canvas id="confetti-canvas"></canvas>
+    <div id="celebration-box">
+      <div id="celebration-emoji-big">🎉🏆🎉</div>
+      <h1 id="celebration-title">AMAZING RUFUS!</h1>
+      <div id="celebration-points-display"></div>
+      <div id="celebration-message"></div>
+      <button id="celebration-close-btn">Let's Go! 🚀</button>
+    </div>
+  </div>
+ 
+  <!-- PARENT PANEL -->
+  <div id="parent-overlay" class="hidden" aria-hidden="true">
+    <div id="parent-panel">
+      <div id="parent-panel-header">
+        <h2>⚙️ Parent Controls</h2>
+        <button id="parent-close-btn" class="icon-btn">✕</button>
+      </div>
+ 
+      <!-- PIN Screen -->
+      <div id="pin-screen">
+        <p class="pin-prompt">Enter 4-digit PIN</p>
+        <div id="pin-dots">
+          <span class="pin-dot" id="pd0"></span>
+          <span class="pin-dot" id="pd1"></span>
+          <span class="pin-dot" id="pd2"></span>
+          <span class="pin-dot" id="pd3"></span>
+        </div>
+        <div id="pin-keypad">
+          <button class="pin-key" data-digit="1">1</button>
+          <button class="pin-key" data-digit="2">2</button>
+          <button class="pin-key" data-digit="3">3</button>
+          <button class="pin-key" data-digit="4">4</button>
+          <button class="pin-key" data-digit="5">5</button>
+          <button class="pin-key" data-digit="6">6</button>
+          <button class="pin-key" data-digit="7">7</button>
+          <button class="pin-key" data-digit="8">8</button>
+          <button class="pin-key" data-digit="9">9</button>
+          <button class="pin-key pin-clear" id="pin-clear-btn">⌫</button>
+          <button class="pin-key" data-digit="0">0</button>
+          <button class="pin-key pin-cancel" id="pin-cancel-btn">✕</button>
+        </div>
+        <div id="pin-error" class="hidden">Wrong PIN. Try again.</div>
+      </div>
+ 
+      <!-- Controls (shown after correct PIN) -->
+      <div id="parent-controls" class="hidden">
+        <div class="ctrl-section">
+          <h3>Schedule</h3>
+          <label>Start Time
+            <input type="time" id="ctrl-start-time" value="06:45">
+          </label>
+          <button id="ctrl-save-time" class="ctrl-btn primary">Save Schedule</button>
+        </div>
+ 
+        <div class="ctrl-section">
+          <h3>Audio</h3>
+          <label class="toggle-row">
+            <span>Audio Alerts</span>
+            <input type="checkbox" id="ctrl-mute-toggle" class="toggle-input">
+            <span class="toggle-slider"></span>
+          </label>
+          <button id="ctrl-test-audio" class="ctrl-btn">Test Audio 🔊</button>
+        </div>
+ 
+        <div class="ctrl-section">
+          <h3>Points Adjustment</h3>
+          <label>Adjust Total Points
+            <div class="adj-row">
+              <input type="number" id="ctrl-points-adj" placeholder="e.g. 50">
+              <button id="ctrl-points-save" class="ctrl-btn primary">Set</button>
+            </div>
+          </label>
+        </div>
+ 
+        <div class="ctrl-section">
+          <h3>Change PIN</h3>
+          <label>New PIN (4 digits)
+            <div class="adj-row">
+              <input type="number" id="ctrl-new-pin" placeholder="1234" maxlength="4">
+              <button id="ctrl-pin-save" class="ctrl-btn primary">Set PIN</button>
+            </div>
+          </label>
+        </div>
+ 
+        <div class="ctrl-section">
+          <h3>History</h3>
+          <div id="history-table-wrap">
+            <table id="history-table">
+              <thead><tr><th>Date</th><th>Points</th><th>All On Time?</th></tr></thead>
+              <tbody id="history-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+ 
+        <div class="ctrl-section danger-zone">
+          <h3>Reset</h3>
+          <button id="ctrl-reset-today" class="ctrl-btn danger">Reset Today's Tasks</button>
+          <button id="ctrl-reset-all" class="ctrl-btn danger">Reset All Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <script src="app.js"></script>
+</body>
+</html>
