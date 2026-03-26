@@ -10,8 +10,6 @@
 </head>
 <body>
   <div id="app">
- 
-    <!-- HEADER -->
     <header id="header">
       <div id="header-left">
         <div id="current-date-display"></div>
@@ -25,12 +23,10 @@
         </div>
       </div>
       <div id="header-right">
-        <button id="mute-btn" class="icon-btn" title="Toggle audio">🔊</button>
-        <button id="parent-btn" class="icon-btn" title="Parent controls">⚙️</button>
+        <button id="mute-btn" class="icon-btn">🔊</button>
+        <button id="parent-btn" class="icon-btn">⚙️</button>
       </div>
     </header>
- 
-    <!-- HERO: CURRENT TASK COUNTDOWN -->
     <section id="hero-section">
       <div id="hero-label">Current Task</div>
       <div id="hero-task-name"></div>
@@ -40,13 +36,7 @@
       </div>
       <div id="hero-status-text"></div>
     </section>
- 
-    <!-- TASK LIST -->
-    <section id="task-list" role="list">
-      <!-- Rendered by JS -->
-    </section>
- 
-    <!-- BOTTOM STATS BAR -->
+    <section id="task-list" role="list"></section>
     <footer id="stats-bar">
       <div class="stat-chip">
         <span class="stat-val" id="today-points">0</span>
@@ -61,11 +51,8 @@
         <span class="stat-lbl">Best Day</span>
       </div>
     </footer>
- 
-  </div><!-- end #app -->
- 
-  <!-- CELEBRATION OVERLAY -->
-  <div id="celebration-overlay" class="hidden" aria-hidden="true">
+  </div>
+  <div id="celebration-overlay" class="hidden">
     <canvas id="confetti-canvas"></canvas>
     <div id="celebration-box">
       <div id="celebration-emoji-big">🎉🏆🎉</div>
@@ -75,16 +62,12 @@
       <button id="celebration-close-btn">Let's Go! 🚀</button>
     </div>
   </div>
- 
-  <!-- PARENT PANEL -->
-  <div id="parent-overlay" class="hidden" aria-hidden="true">
+  <div id="parent-overlay" class="hidden">
     <div id="parent-panel">
       <div id="parent-panel-header">
         <h2>⚙️ Parent Controls</h2>
         <button id="parent-close-btn" class="icon-btn">✕</button>
       </div>
- 
-      <!-- PIN Screen -->
       <div id="pin-screen">
         <p class="pin-prompt">Enter 4-digit PIN</p>
         <div id="pin-dots">
@@ -103,14 +86,12 @@
           <button class="pin-key" data-digit="7">7</button>
           <button class="pin-key" data-digit="8">8</button>
           <button class="pin-key" data-digit="9">9</button>
-          <button class="pin-key pin-clear" id="pin-clear-btn">⌫</button>
+          <button class="pin-key" id="pin-clear-btn">⌫</button>
           <button class="pin-key" data-digit="0">0</button>
-          <button class="pin-key pin-cancel" id="pin-cancel-btn">✕</button>
+          <button class="pin-key" id="pin-cancel-btn">✕</button>
         </div>
         <div id="pin-error" class="hidden">Wrong PIN. Try again.</div>
       </div>
- 
-      <!-- Controls (shown after correct PIN) -->
       <div id="parent-controls" class="hidden">
         <div class="ctrl-section">
           <h3>Schedule</h3>
@@ -119,7 +100,6 @@
           </label>
           <button id="ctrl-save-time" class="ctrl-btn primary">Save Schedule</button>
         </div>
- 
         <div class="ctrl-section">
           <h3>Audio</h3>
           <label class="toggle-row">
@@ -129,7 +109,6 @@
           </label>
           <button id="ctrl-test-audio" class="ctrl-btn">Test Audio 🔊</button>
         </div>
- 
         <div class="ctrl-section">
           <h3>Points Adjustment</h3>
           <label>Adjust Total Points
@@ -139,17 +118,15 @@
             </div>
           </label>
         </div>
- 
         <div class="ctrl-section">
           <h3>Change PIN</h3>
           <label>New PIN (4 digits)
             <div class="adj-row">
-              <input type="number" id="ctrl-new-pin" placeholder="1234" maxlength="4">
+              <input type="number" id="ctrl-new-pin" placeholder="1234">
               <button id="ctrl-pin-save" class="ctrl-btn primary">Set PIN</button>
             </div>
           </label>
         </div>
- 
         <div class="ctrl-section">
           <h3>History</h3>
           <div id="history-table-wrap">
@@ -159,7 +136,6 @@
             </table>
           </div>
         </div>
- 
         <div class="ctrl-section danger-zone">
           <h3>Reset</h3>
           <button id="ctrl-reset-today" class="ctrl-btn danger">Reset Today's Tasks</button>
@@ -168,7 +144,6 @@
       </div>
     </div>
   </div>
- 
   <script src="app.js"></script>
 </body>
 </html>
